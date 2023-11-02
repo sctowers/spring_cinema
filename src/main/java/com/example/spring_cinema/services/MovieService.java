@@ -14,17 +14,12 @@ public class MovieService {
     @Autowired
     MovieRepository movieRepository;
 
-    // dependency injection of MovieRepository into service
-    public MovieService(MovieRepository movieRepository){
-        this.movieRepository = movieRepository;
-    }
-
     // retrieve list of all movies from the repo
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
-    // retireve a specific movie by its id from the repo
+    // retrieve a specific movie by its id from the repo
     public Movie getMovieById(Integer id){
         Optional<Movie> optionalMovie = movieRepository.findById(id);
         return optionalMovie.orElse(null);
