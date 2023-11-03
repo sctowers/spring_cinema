@@ -33,13 +33,11 @@ public class MovieService {
 
 
     // update a movie
-    public Movie updateMovie(Movie updatedMovie) {
-        // check if the movie exists in the repository
-        Optional<Movie> optionalMovie = movieRepository.findById(updatedMovie.getId());
+    public Movie updateMovie(Integer id, Movie updatedMovie) {
+        Optional<Movie> optionalMovie = movieRepository.findById(id);
         if (optionalMovie.isPresent()) {
             Movie existingMovie = optionalMovie.get();
 
-            // update the attributes
             if (updatedMovie.getTitle() != null) {
                 existingMovie.setTitle(updatedMovie.getTitle());
             }
@@ -50,19 +48,15 @@ public class MovieService {
                 existingMovie.setDuration(updatedMovie.getDuration());
             }
 
-            // save the updated movie
             return movieRepository.save(existingMovie);
         }
 
-        // If the movie doesn't exist, return null
         return null;
     }
 
     //  delete movie
     public boolean deleteMovie(Integer id) {
-        Optional<Movie> optionalMovie = movieRepository.findById(id);
-
-        if (optionalMovie.isPresent()) {
+        if (movieRepository.existsById(id)) {
             movieRepository.deleteById(id);
             return true;
         }

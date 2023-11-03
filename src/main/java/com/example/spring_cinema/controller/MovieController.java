@@ -44,37 +44,20 @@ public class MovieController {
 
     // patch request for the movies endpoint (updates the movie)
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Integer id, @RequestBody Movie updatedMovie) {
-        Movie existingMovie = movieService.getMovieById(id);
-
-            if (existingMovie != null) {
-                // update attributes
-                if (updatedMovie.getTitle() != null) {
-                    existingMovie.setTitle(updatedMovie.getTitle());
-                }
-                if (updatedMovie.getRating() != null) {
-                    existingMovie.setRating(updatedMovie.getRating());
-                }
-                if (updatedMovie.getDuration() > 0) {
-                    existingMovie.setDuration(updatedMovie.getDuration());
-                }
-
-                // save the updated movie
-                Movie updated = movieService.updateMovie(existingMovie);
-
-                return new ResponseEntity<>(updated, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-
+        Movie updated = movieService.updateMovie(id, updatedMovie);
+        if (updated != null) {
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
 
     // to delete a movie
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Integer id) {
         boolean deleted = movieService.deleteMovie(id);
-
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
