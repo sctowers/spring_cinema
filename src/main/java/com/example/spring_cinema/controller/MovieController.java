@@ -37,9 +37,8 @@ public class MovieController {
 
     // post request for the movies endpoint (adds a new movie to the system)
     @PostMapping
-    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
-        Movie savedMovie = movieService.addMovie(movie);
-        return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
+    public void addMovie(@RequestBody Movie movie) {
+        movieService.addMovie(movie);
     }
 
     // patch request for the movies endpoint (updates the movie)

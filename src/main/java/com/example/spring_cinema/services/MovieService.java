@@ -27,8 +27,8 @@ public class MovieService {
 
     // add a new movie to the repo and return saved movie
 
-    public Movie addMovie(Movie movie) {
-        return movieRepository.save(movie);
+    public void addMovie(Movie movie) {
+        movieRepository.save(movie);
     }
 
 
