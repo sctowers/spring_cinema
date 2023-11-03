@@ -37,12 +37,12 @@ public class MovieController {
 
     // post request for the movies endpoint (adds a new movie to the system)
     @PostMapping
-    public void addMovie(@RequestBody Movie movie) {
+    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         movieService.addMovie(movie);
+        return new ResponseEntity<>(movie, HttpStatus.CREATED);
     }
 
     // patch request for the movies endpoint (updates the movie)
-
     @PatchMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Integer id, @RequestBody Movie updatedMovie) {
         Movie updated = movieService.updateMovie(id, updatedMovie);
