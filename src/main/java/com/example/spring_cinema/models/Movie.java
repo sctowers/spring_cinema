@@ -1,33 +1,25 @@
 package com.example.spring_cinema.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String title;
+    @Column
     private String rating;
+    @Column
     private int duration;
 
-    public Movie(Integer id, String title, String rating, int duration) {
-        this.id = id;
+    public Movie(String title, String rating, int duration) {
         this.title = title;
         this.rating = rating;
         this.duration = duration;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {
